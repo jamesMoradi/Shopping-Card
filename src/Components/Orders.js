@@ -6,24 +6,18 @@ import OrdersList from './OrdersList'
 import { ReducerBodyContext } from '../Contexts/ReducerContext'
 import { REDUCER_ACTION } from '../Contexts/ReducerContext'
 
+//functions
+import { calculatingTotalPrice } from '../Contexts/ReducerContext'
+import { calculationProductsQuantity } from '../Contexts/ReducerContext'
+
 const Orders = () => {
   const {state, dispatch} = useContext(ReducerBodyContext)
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalProducts, setTotalProducts] = useState(0)
 
   useEffect(() => {
-    let num = 0
-    const totalPriceCalculate = state.products.map(each => num += each.quantity * each.price)
-    setTotalPrice(totalPriceCalculate)
-
-    const totalProducts = []
-    state.products.map(each => totalProducts.push(each.quantity))
-    let newNum = 0
-    for(let i = 0 ; totalProducts.length ; i++) {
-      newNum += totalProducts[i]
-    }
-
-    setTotalProducts(newNum)
+    calculatingTotalPrice(state.products, setTotalPrice)
+    calculationProductsQuantity(state.products, setTotalProducts)
   })
 
   return (

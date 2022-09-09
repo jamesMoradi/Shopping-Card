@@ -51,15 +51,3 @@
     flex-direction: row;
     justify-content: space-between;
 }
-
-
-.detailContainer button {
-    background-color: rgb(54, 54, 153);
-    color: #fff;
-    text-align: center;
-    padding: .5rem;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}

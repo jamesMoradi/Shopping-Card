@@ -12,6 +12,12 @@
     margin-right: auto;
 }
 
-.shoppingIcon {
-    width: 2rem;
+.toOrderLink {
+    position: relative;
+}
+
+.toOrderLink span {
+    position: absolute;
+    top: -5px;
+    right: -5px;
 }

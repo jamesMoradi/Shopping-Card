@@ -17,6 +17,23 @@ const initialState = {
     isPayed : false
 }
 
+export const calculatingTotalPrice = (products, setTotalPrice) => {
+    let num = 0
+    const total = products.map(each => num += each.quantity * each.price)
+    setTotalPrice(total)
+}
+
+export const calculationProductsQuantity = (products,setTotalProducts) => {
+    const totalProducts = [] 
+    products.map(each => totalProducts.push(each.quantity))
+    let newNum = 0
+    for(let i = 0 ; totalProducts.length ; i++) {
+      newNum += totalProducts[i]
+    }
+
+    setTotalProducts(newNum)
+}
+
 const reducer = (state, action) => {
     switch (action.type) {
         case REDUCER_ACTION.addItem :

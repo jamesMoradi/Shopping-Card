@@ -5,7 +5,6 @@ import styles from './Landing.module.css'
 
 const Landing = () => {
   const products = React.useContext(ProductsContext)
-
   return (
     <div className={styles.ProductsContainer}>
         {products.map(eachProduct => <
@@ -15,6 +14,7 @@ const Landing = () => {
             price={eachProduct.price}
             image={eachProduct.image}
             title={eachProduct.title}
+            quantity={eachProduct.quantity}
         />)}
     </div>
   )

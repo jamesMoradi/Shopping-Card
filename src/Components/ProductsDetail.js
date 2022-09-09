@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import {ProductsContext} from '../Contexts/DataContext'
 import {useParams, useNavigate} from 'react-router-dom'
 import styles from './ProductsDetail.module.css'
+import { Button } from '@mui/material'
 
 const ProductsDetail = () => {
     const [selectedProduct, setSelectedProduct] = useState({})
@@ -31,7 +32,7 @@ const ProductsDetail = () => {
             </div>
             <div className={styles.btnsContainer}>
                 <span className={styles.price}>{price}$</span>
-                <button onClick={backHandler}>back to shop</button>
+                <Button color='primary' variant='contained' onClick={backHandler}>back to shop</Button>
             </div>
         </div>
     </div>

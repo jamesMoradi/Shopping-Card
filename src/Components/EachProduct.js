@@ -2,10 +2,11 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './EachProduct.module.css'
 
+//MUI
+import { Button } from '@mui/material'
+
 //icons
-import deleteIcon from '../Icons/delete.svg'
-import addIcon from '../Icons/add.svg'
-import removeIcon from '../Icons/remove.svg'
+import { DeleteOutline, AddOutlined, RemoveOutlined } from '@mui/icons-material'
 
 //context
 import { ReducerBodyContext } from '../Contexts/ReducerContext'
@@ -19,11 +20,6 @@ const EachProduct = props => {
     const titleInArray = title.split(' ')
     const newTitle = titleInArray[0] + '' + titleInArray[1]
 
-    const add = () => {
-      dispatch({type : REDUCER_ACTION.increase, payLoad : props})
-      const x = state.products.filter(each => each.id === id)
-    }
-
   return (
     <div className={styles.CardContainer}>
         <img src={image} alt='' />
@@ -31,16 +27,35 @@ const EachProduct = props => {
             <h2>{newTitle}</h2>
             <span>{price}$</span>
         </div>
-        <div>
+        <div className={styles.btnContainer}>
         <Link to={`/products/${id}`}>Details</Link>
         {
           !!state.products.find(EachProduct => EachProduct.id === id) ? 
           <div>
-            <button className={styles.icon} onClick={() => dispatch({type : REDUCER_ACTION.removeItem, payLoad : props})}><img alt='' src={deleteIcon}/></button>
-            <button className={styles.icon} onClick={() => dispatch({type : REDUCER_ACTION.decrease, payLoad : props})}><img src={removeIcon} alt=''/></button>
-            <button className={styles.icon} onClick={add}><img src={addIcon} alt=''/></button>  
+            {state.products.filter(each => each.id === id)[0].quantity > 1 ? 
+            <Button 
+            variant='contained' 
+            color='primary'
+            onClick={() => dispatch({type : REDUCER_ACTION.decrease, payLoad : props})}>
+              <RemoveOutlined fontSize='small'/>
+            </Button> :
+            <Button 
+            variant='contained' 
+            onClick={() => dispatch({type : REDUCER_ACTION.removeItem, payLoad : props})}>
+              <DeleteOutline  fontSize='small'/>
+            </Button>
+            }
+            <Button 
+            variant='contained' 
+            onClick={() => dispatch({type : REDUCER_ACTION.increase, payLoad : props})}>
+              <AddOutlined fontSize='small' />
+              </Button>  
           </div> :
-          <button onClick={() => dispatch({type : REDUCER_ACTION.addItem, payLoad : props})}>add to card</button> }
+          <Button 
+          variant='contained' 
+          color='primary' 
+          size='small' 
+          onClick={() => dispatch({type : REDUCER_ACTION.addItem, payLoad : props})}>add to card</Button> }
         </div>
     </div>
   )
