@@ -4,14 +4,15 @@ export const ReducerBodyContext = createContext()
 
 export const REDUCER_ACTION = {
     addItem : 'ADDITEM', 
-    removeItem : 'REMOVEITEM', 
+    removeItem : 'REMOVEITEM',
+    increase : 'INCREASE', 
+    decrease : 'DECREASE',
     clear : 'CLEAR',
     checkOut : 'CHECKOUT'
 }
 
 const initialState = {
     products : [],
-    productsCount : 0,
     total: 0,
     isPayed : false
 }
@@ -21,12 +22,20 @@ const reducer = (state, action) => {
         case REDUCER_ACTION.addItem :
             return {...state, products : [...state.products, {id : action.payLoad.id,
                 price : action.payLoad.price,
-                title : action.payLoad.title}],
-                total : state.productsCount + 1}
-        case REDUCER_ACTION.removeItem: 
-            return {...state, 
-                products : [...state.products.filter(each => each.id !== action.payLoad.id)],
-                total : state.total - 1}
+                title : action.payLoad.title,
+                image : action.payLoad.image,
+                quantity : 1}]}
+        case REDUCER_ACTION.decrease : 
+                const i = state.products.findIndex(each => each.id === action.payLoad.id)
+                state.products[i].quantity--
+                return {...state}
+        case REDUCER_ACTION.increase : 
+                const selected = state.products.findIndex(each => each.id === action.payLoad.id)
+                state.products[selected].quantity++
+                return {...state}
+        case REDUCER_ACTION.removeItem : 
+                const newSelected = state.products.filter(each => each.id !== action.payLoad.id)
+                return {...state, products : [...newSelected]}
         case REDUCER_ACTION.clear : return {
             products : [], 
             total : 0,

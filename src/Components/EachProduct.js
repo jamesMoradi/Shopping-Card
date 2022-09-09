@@ -5,6 +5,7 @@ import styles from './EachProduct.module.css'
 //icons
 import deleteIcon from '../Icons/delete.svg'
 import addIcon from '../Icons/add.svg'
+import removeIcon from '../Icons/remove.svg'
 
 //context
 import { ReducerBodyContext } from '../Contexts/ReducerContext'
@@ -17,7 +18,12 @@ const EachProduct = props => {
     const {image, title, price, id} = props
     const titleInArray = title.split(' ')
     const newTitle = titleInArray[0] + '' + titleInArray[1]
-    console.log(state);
+
+    const add = () => {
+      dispatch({type : REDUCER_ACTION.increase, payLoad : props})
+      const x = state.products.filter(each => each.id === id)
+    }
+
   return (
     <div className={styles.CardContainer}>
         <img src={image} alt='' />
@@ -30,8 +36,9 @@ const EachProduct = props => {
         {
           !!state.products.find(EachProduct => EachProduct.id === id) ? 
           <div>
-            <img onClick={() => dispatch({type : REDUCER_ACTION.removeItem, payLoad : props})}  alt='' src={deleteIcon}/>  
-            <img onClick={() => dispatch({type : REDUCER_ACTION.addItem, payLoad : props})}  alt='' src={addIcon}/>  
+            <button className={styles.icon} onClick={() => dispatch({type : REDUCER_ACTION.removeItem, payLoad : props})}><img alt='' src={deleteIcon}/></button>
+            <button className={styles.icon} onClick={() => dispatch({type : REDUCER_ACTION.decrease, payLoad : props})}><img src={removeIcon} alt=''/></button>
+            <button className={styles.icon} onClick={add}><img src={addIcon} alt=''/></button>  
           </div> :
           <button onClick={() => dispatch({type : REDUCER_ACTION.addItem, payLoad : props})}>add to card</button> }
         </div>
