@@ -33,7 +33,6 @@ const NavBar = () => {
       <Link to='/'>products</Link>
       <Link to='/orders'>
       <span>{productsNumber === 0 ? '0' : productsNumber}</span>
-      {console.log(productsNumber)}
       <img className={styles.shoppingIcon} src={shoppingIcon} alt=''/>
       </Link>
     </nav>

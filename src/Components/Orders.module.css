@@ -1,0 +1,55 @@
+.ordersContainer {
+    display: grid;
+    grid-template-columns: 75% auto;
+    margin: 2rem 10rem;
+}
+
+.ordersAsideBar {
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 10rem;
+    padding: .5rem;
+}
+
+.ordersLabel {
+    color: rgb(54, 54, 153);
+    font-weight: 600;
+}
+
+.ordersAsideBar > div:nth-child(2) {
+    margin-top: 2rem;
+}
+
+.ordersAsideBar > div:last-child {
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.clearBtn {
+    color: green;
+    text-decoration: underline;
+    display: block;
+    cursor: pointer;
+    padding: .5rem 1.5rem;
+    border: none;
+    outline: none;
+    background-color: inherit;
+}
+
+.checkOutBtn{
+    background-color: green;
+    color: #fff;
+    display: block;
+    cursor: pointer;
+    padding: .5rem 1.5rem;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
