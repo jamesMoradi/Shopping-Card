@@ -20,6 +20,7 @@
 .orderTitle {
     color: rgb(54, 54, 153);
     font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .orderPrice {

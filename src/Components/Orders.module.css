@@ -2,6 +2,8 @@
     display: grid;
     grid-template-columns: 75% auto;
     margin: 2rem 10rem;
+    gap: 5rem;
+    width: 70%;
 }
 
 .ordersAsideBar {

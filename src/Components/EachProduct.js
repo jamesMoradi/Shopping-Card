@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import styles from './EachProduct.module.css'
 
 //MUI
-import { Button } from '@mui/material'
+import { Button, Typography, Card, CardContent, Container , Stack} from '@mui/material'
 
 //icons
 import { DeleteOutline, AddOutlined, RemoveOutlined } from '@mui/icons-material'
@@ -18,20 +17,25 @@ const EachProduct = props => {
     const {dispatch, state} = useContext(ReducerBodyContext)
     const {image, title, price, id} = props
     const titleInArray = title.split(' ')
-    const newTitle = titleInArray[0] + '' + titleInArray[1]
+    const newTitle = titleInArray[0] + ' ' + titleInArray[1]
 
   return (
-    <div className={styles.CardContainer}>
-        <img src={image} alt='' />
-        <div>
-            <h2>{newTitle}</h2>
-            <span>{price}$</span>
-        </div>
-        <div className={styles.btnContainer}>
+    <Card sx={{padding : '.5rem'}}>
+        <img style={{width : '100%', height : '15rem'}} src={image} alt='' />
+        <CardContent>
+          <Container>
+              <Typography variant='h6' container='h2'>{newTitle}</Typography>
+              <Typography mb={8} variant='body1'>{price}$</Typography>
+          </Container>
+        </CardContent>
+        <Stack
+        justifyContent='space-between'
+        direction='row'
+        alignItems='center'>
         <Link to={`/products/${id}`}>Details</Link>
         {
           !!state.products.find(EachProduct => EachProduct.id === id) ? 
-          <div>
+          <Container>
             {state.products.filter(each => each.id === id)[0].quantity > 1 ? 
             <Button 
             variant='contained' 
@@ -50,14 +54,14 @@ const EachProduct = props => {
             onClick={() => dispatch({type : REDUCER_ACTION.increase, payLoad : props})}>
               <AddOutlined fontSize='small' />
               </Button>  
-          </div> :
+          </Container> :
           <Button 
           variant='contained' 
           color='primary' 
           size='small' 
           onClick={() => dispatch({type : REDUCER_ACTION.addItem, payLoad : props})}>add to card</Button> }
-        </div>
-    </div>
+        </Stack>
+    </Card>
   )
 }
 

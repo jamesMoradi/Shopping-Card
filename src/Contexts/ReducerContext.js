@@ -4,11 +4,11 @@ export const ReducerBodyContext = createContext()
 
 export const REDUCER_ACTION = {
     addItem : 'ADDITEM', 
-    removeItem : 'REMOVEITEM',
+    removeItem : 'REMOVE_ITEM',
     increase : 'INCREASE', 
     decrease : 'DECREASE',
     clear : 'CLEAR',
-    checkOut : 'CHECKOUT'
+    checkOut : 'CHECKOUT',
 }
 
 const initialState = {
@@ -17,42 +17,38 @@ const initialState = {
     isPayed : false
 }
 
-export const calculatingTotalPrice = (products, setTotalPrice) => {
-    let num = 0
-    const total = products.map(each => num += each.quantity * each.price)
-    setTotalPrice(total)
-}
+const sumNum = items => {
+    const itemsCounter = items.reduce((total, products) => total + products.quantity, 0)
+    const total = items.reduce((total, products) => total + products.quantity * products.price, 0).toFixed(2)
 
-export const calculationProductsQuantity = (products,setTotalProducts) => {
-    const totalProducts = [] 
-    products.map(each => totalProducts.push(each.quantity))
-    let newNum = 0
-    for(let i = 0 ; totalProducts.length ; i++) {
-      newNum += totalProducts[i]
-    }
-
-    setTotalProducts(newNum)
+    return {itemsCounter, total}
 }
 
 const reducer = (state, action) => {
     switch (action.type) {
         case REDUCER_ACTION.addItem :
-            return {...state, products : [...state.products, {id : action.payLoad.id,
-                price : action.payLoad.price,
-                title : action.payLoad.title,
-                image : action.payLoad.image,
-                quantity : 1}]}
+            if (!state.products.find(item => item.id === action.payLoad.id)) {
+                state.products.push({
+                    ...action.payLoad,
+                    quantity: 1
+                })
+            }
+            return {
+                ...state,
+                products: [...state.products],
+                ...sumNum(state.products)
+            }
         case REDUCER_ACTION.decrease : 
                 const i = state.products.findIndex(each => each.id === action.payLoad.id)
                 state.products[i].quantity--
-                return {...state}
+                return {...state, ...sumNum(state.products)}
         case REDUCER_ACTION.increase : 
                 const selected = state.products.findIndex(each => each.id === action.payLoad.id)
                 state.products[selected].quantity++
-                return {...state}
+                return {...state, ...sumNum(state.products)}
         case REDUCER_ACTION.removeItem : 
                 const newSelected = state.products.filter(each => each.id !== action.payLoad.id)
-                return {...state, products : [...newSelected]}
+                return {...state, products : [...newSelected], ...sumNum(state.products)}
         case REDUCER_ACTION.clear : return {
             products : [], 
             total : 0,

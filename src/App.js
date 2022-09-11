@@ -19,7 +19,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Landing />}/>
           <Route path='/products/:id' element={<ProductsDetail />}/>
-          <Route path='/orders/' element={<Orders/>}/>
+          <Route path='/orders' element={<Orders/>}/>
         </Routes>
       </ReducerContext>
     </BodyContext>
